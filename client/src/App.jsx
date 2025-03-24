@@ -1,13 +1,9 @@
-import React from 'react'
-import { Button } from './components/ui/button'
-import { Layout } from 'lucide-react'
+import Header from './components/custom/Header'
 
 function App() {
   return (
     <div>
-      <Button >
-        <Layout size={20}/>
-        Hello world</Button>
+      <Header />
     </div>
   )
 }
