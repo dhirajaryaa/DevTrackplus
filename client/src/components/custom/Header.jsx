@@ -6,7 +6,7 @@ import { Switch } from "../ui/switch";
 import { Moon, Sun } from "lucide-react";
 
 function Header() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
@@ -28,8 +28,8 @@ function Header() {
               <Link to={"/login"}>
                 <Button variant={"outline"}>Login</Button>
               </Link>
-              <Link to={"/register"}>
-                <Button>Register</Button>
+              <Link to={"/signup"}>
+                <Button>Signup</Button>
               </Link>
             </>
           )}
