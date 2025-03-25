@@ -3,37 +3,50 @@ import { Button } from "../ui/button";
 import UserProfile from "./UserProfile";
 import { Link } from "react-router-dom";
 import { Switch } from "../ui/switch";
-import { Moon, Sun } from "lucide-react";
+import {
+  ArrowUpCircleIcon,
+  Moon,
+  SquareDashedBottomCode,
+  Sun,
+} from "lucide-react";
+import { SidebarTrigger } from "../ui/sidebar";
+import { Separator } from "../ui/separator";
 
 function Header() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
-    <header className="fixed top-0 z-50 w-full h-16 bg-white/80 backdrop-blur-2xl border-b flex items-center justify-center">
-      <div className="container mx-auto px-3 flex items-center justify-between">
-        <Logo />
-        <div className="flex items-center space-x-4">
-          {isUserLoggedIn ? (
-            <>
-              <div className="flex items-center space-x-2">
-                <Sun className={`size-5 ${!isDarkMode && "text-sky-500"}`} />
-                <Switch checked={isDarkMode} onCheckedChange={toggleDarkMode} />
-                <Moon className={`size-5 ${isDarkMode && "text-sky-500"}`} />
-              </div>
-              <UserProfile />
-            </>
-          ) : (
-            <>
-              <Link to={"/login"}>
-                <Button variant={"outline"}>Login</Button>
-              </Link>
-              <Link to={"/signup"}>
-                <Button>Signup</Button>
-              </Link>
-            </>
-          )}
-        </div>
+    <header className="flex h-16 shrink-0 w-full justify-between  items-center gap-2 border-b px-4">
+      <div className="flex items-center space-x-2 flex-1">
+        <SidebarTrigger />
+        <Separator
+          orientation="vertical"
+          className="data-[orientation=vertical]:h-8 bg-muted-foreground"
+        />
+        <h1 className="text-base font-medium">Documents</h1>
+      </div>
+
+      <div className="flex items-center space-x-4">
+        {isUserLoggedIn ? (
+          <>
+            <div className="flex items-center space-x-2">
+              <Sun className={`size-5 ${!isDarkMode && "text-sky-500"}`} />
+              <Switch checked={isDarkMode} onCheckedChange={toggleDarkMode} />
+              <Moon className={`size-5 ${isDarkMode && "text-sky-500"}`} />
+            </div>
+            <UserProfile />
+          </>
+        ) : (
+          <>
+            <Link to={"/login"}>
+              <Button variant={"outline"}>Login</Button>
+            </Link>
+            <Link to={"/signup"}>
+              <Button>Signup</Button>
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );
@@ -43,11 +56,11 @@ export default Header;
 
 export const Logo = () => {
   return (
-    <div className="relative inline-block px-2 py-1 select-none">
-      <div className="absolute top-0 left-0 w-full h-full bg-sky-100 dark:bg-pink-600 rounded-md -rotate-1 -z-5"></div>
-      <span className="text-black dark:text-white font-bold text-xl">
-        DevTrack+
-      </span>
-    </div>
+    <Link to="/">
+      <div className="flex gap-2 p-3 justify-center bg-accent rounded-md items-center leading-none">
+        <SquareDashedBottomCode size={25} />
+        <span className="font-semibold text-xl">DevTrack+</span>
+      </div>
+    </Link>
   );
 };
