@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Layout from "./layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Signup";
+import TaskPage from "./pages/TaskPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/tasks" element={<TaskPage />} />
       </Route>
     </Routes>
   );

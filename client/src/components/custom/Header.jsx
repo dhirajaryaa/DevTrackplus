@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import UserProfile from "./UserProfile";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Switch } from "../ui/switch";
 import {
   ArrowUpCircleIcon,
@@ -13,6 +13,7 @@ import { SidebarTrigger } from "../ui/sidebar";
 import { Separator } from "../ui/separator";
 
 function Header() {
+  const {pathname} = useLocation()
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
@@ -24,7 +25,7 @@ function Header() {
           orientation="vertical"
           className="data-[orientation=vertical]:h-8 bg-muted-foreground"
         />
-        <h1 className="text-base font-medium">Documents</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold">{pathname.split[1]|| "Dashboard"}</h1>
       </div>
 
       <div className="flex items-center space-x-4">
