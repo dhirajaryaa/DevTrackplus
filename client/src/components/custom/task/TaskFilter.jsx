@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Filter, Hourglass, PlusCircle } from "lucide-react";
+import { Filter, Flag, PlusCircle } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -31,7 +31,7 @@ function TaskFilter() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild >
             <Button variant={"outline"}>
-              <Hourglass />
+              <Flag />
               <span className="hidden sm:block">Priority</span>
             </Button>
           </DropdownMenuTrigger>
