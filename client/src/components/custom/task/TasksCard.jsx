@@ -6,16 +6,23 @@ import { Badge } from "@/components/ui/badge";
 const TaskCard = ({ task }) => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const statusColors = {
-    Todo: "text-blue-500",
-    "In Progress": "text-yellow-500",
-    Completed: "text-green-500",
+  const getStatusColor = function (status) {
+    switch (status) {
+      case "Todo":
+        return "text-blue-500 bg-blue-100";
+      case "In Progress":
+        return "text-yellow-500 bg-yellow-100";
+      case "Completed":
+        return "text-red-500 bg-red-100";
+      default:
+        return "text-gray-500 bg-gray-100";
+    }
   };
 
   return (
     <article className="mb-4 bg-gradient-to-t from-accent/40 rounded-lg p-4 shadow border w-full max-w-sm">
       {/* Task Header with Checkbox */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-5 ">
         <Checkbox
           checked={isChecked}
           onCheckedChange={(checked) => setIsChecked(checked)}
@@ -25,9 +32,6 @@ const TaskCard = ({ task }) => {
             isChecked ? "line-through text-gray-400" : ""
           }`}
         >
-          <div
-            className={`${statusColors[task?.status]} w-4 h-4 rounded-full`}
-          />
           {task?.title}
         </h1>
       </div>
@@ -51,7 +55,9 @@ const TaskCard = ({ task }) => {
 
       {/* Actions */}
       <div className="flex justify-between items-center mt-3">
-        <Badge variant="outline">{task?.status}</Badge>
+        <Badge variant="outline" className={`${getStatusColor(task.status)}`}>
+          {task?.status}
+        </Badge>
         <button className="text-blue-500 hover:underline text-sm">
           View Details
         </button>

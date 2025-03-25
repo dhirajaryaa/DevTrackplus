@@ -14,7 +14,7 @@ function TaskFilter() {
     <div className="flex w-full rounded-lg items-center justify-between p-2 pt-4 gap-2">
       <div className="flex items-center gap-2 sm:gap-5">
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild>
             <Button>
               <Filter />
               <span className="hidden sm:block">Filters</span>
@@ -29,7 +29,7 @@ function TaskFilter() {
         </DropdownMenu>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild >
             <Button variant={"outline"}>
               <Hourglass />
               <span className="hidden sm:block">Priority</span>
