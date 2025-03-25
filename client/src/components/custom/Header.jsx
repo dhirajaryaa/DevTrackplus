@@ -18,7 +18,7 @@ function Header() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
-    <header className="flex h-16 shrink-0 w-full justify-between  items-center gap-2 border-b px-4">
+    <header className="flex sticky top-0 h-16 shrink-0 w-full justify-between  items-center gap-2 border-b px-4 bg-background/50 backdrop-blur-2xl">
       <div className="flex items-center space-x-2 flex-1">
         <SidebarTrigger />
         <Separator

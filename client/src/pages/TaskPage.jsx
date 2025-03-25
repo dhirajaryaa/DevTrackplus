@@ -1,6 +1,6 @@
-import TaskColum from '@/components/custom/task/TaskColum'
-import TaskFilter from '@/components/custom/task/TaskFilter'
-import React from 'react'
+import TaskColum from "@/components/custom/task/TaskColum";
+import TaskFilter from "@/components/custom/task/TaskFilter";
+import React from "react";
 
 function TaskPage() {
   return (
@@ -8,7 +8,7 @@ function TaskPage() {
       <TaskFilter />
       <TaskColum />
     </section>
-  )
+  );
 }
 
-export default TaskPage
+export default TaskPage;

@@ -4,7 +4,6 @@ import TaskCard from "./TasksCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import tasks from "../../../data/task.json";
 
-
 function TaskColum() {
   const [isLoading, setIsLoading] = useState(false);
   const taskSection = [
@@ -23,15 +22,14 @@ function TaskColum() {
   ];
 
   return (
-    <section className="mt-3 p-2 flex gap-5 flex-col sm:flex-row rounded-lg w-full">
-      
+    <section className="mt-3 w-fit p-2 rounded-lg flex justify-center flex-wrap gap-8 sm:justify-normal ">
       {taskSection?.map((item) => {
         const taskCount = tasks?.filter(
           (task) => task?.status?.toLowerCase() == item.label?.toLowerCase()
         )?.length;
 
         return (
-          <div key={item.label} className="w-sm mx-auto ">
+          <div key={item.label} >
             <h2 className="flex items-center gap-2 my-4 justify-center text-center">
               <span className={`${item.color} w-4 h-4 rounded-full`} />
               <span className="mr-6 text-lg font-semibold capitalize">
@@ -39,7 +37,7 @@ function TaskColum() {
               </span>
               <span>
                 <Badge variant="secondary" className="ml-auto">
-                  {taskCount < 9 ? `0${taskCount}` : taskCount}
+                  {taskCount < 10 ? `0${taskCount}` : taskCount}
                 </Badge>
               </span>
             </h2>

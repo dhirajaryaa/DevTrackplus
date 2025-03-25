@@ -10,7 +10,7 @@ function Layout() {
       <AppSidebar />
       <SidebarInset>
         <Header />
-        <main className="flex flex-1 flex-col p-3">
+        <main className="flex flex-1 flex-col">
           <Outlet />
         </main>
       </SidebarInset>
