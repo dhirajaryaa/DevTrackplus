@@ -2,7 +2,8 @@ import { AsyncHandler } from "../utils/AsyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../model/user.model.js";
-import { cookiesOptions } from "../config/env.js";
+import jwt from "jsonwebtoken";
+import { cookiesOptions, REFRESH_TOKEN_SECRET } from "../config/env.js";
 
 //! generate access token
 const generateAccessAndRefreshToken = async function (user) {
@@ -80,7 +81,13 @@ const loginUser = AsyncHandler(async (req, res) => {
     .status(200)
     .cookie("accessToken", accessToken, cookiesOptions)
     .cookie("refreshToken", refreshToken, cookiesOptions)
-    .json(new ApiResponse(200, "User Login Successful", user));
+    .json(
+      new ApiResponse(200, "User Login Successful", {
+        user,
+        accessToken,
+        refreshToken,
+      })
+    );
 });
 
 //! logout user
@@ -98,8 +105,85 @@ const logoutUser = AsyncHandler(async (req, res) => {
     .clearCookie("refreshToken", cookiesOptions)
     .json(new ApiResponse(200, "User Logout Successful"));
 });
-//! generateAccessToken
-//! update User
-//! delete User
 
-export { registerUser, loginUser, logoutUser };
+//! generateAccessToken
+const refreshAccessToken = AsyncHandler(async (req, res) => {
+  const incomingToken =
+    req.cookies?.refreshToken ||
+    req.headers?.authorization?.replace("Bearer ", "");
+
+  if (!incomingToken) {
+    throw new ApiError(403, "Token Expired or Invalid");
+  }
+
+  const decodedToken = await jwt.verify(incomingToken, REFRESH_TOKEN_SECRET);
+
+  if (!decodedToken) {
+    throw new ApiError(403, "Invalid Token");
+  }
+  const user = await User.findById(decodedToken?._id);
+
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+    user
+  );
+
+  if (!(accessToken && refreshToken)) {
+    throw new ApiError(500, "Failed to generate tokens");
+  }
+
+  const data = await User.findById(user._id).select("-password -refreshToken");
+
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, cookiesOptions)
+    .cookie("refreshToken", refreshToken, cookiesOptions)
+    .json(
+      new ApiResponse(200, "User Login Successful", {
+        user: data,
+        accessToken,
+        refreshToken,
+      })
+    );
+});
+
+//! update User
+const updateUser = AsyncHandler(async (req, res) => {
+  const { name, about } = req.body;
+
+  if (!(name || about)) {
+    throw new ApiError(400, "Fields Are Required");
+  }
+  const user = await User.findByIdAndUpdate(
+    req?.user?._id,
+    { name, about },
+    { new: true, select: "-password -refreshToken" }
+  );
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "User profile updated successfully", user));
+});
+
+//! get User
+const getUserProfile = AsyncHandler(async (req, res) => {
+  const user = await User.findById(req?.user?._id).select(
+    "-password -refreshToken"
+  );
+  return res.status(200).json(new ApiResponse(200, "Profile fetched", user));
+});
+
+//! delete User
+const deleteUser = AsyncHandler(async (req, res) => {
+  await User.findByIdAndDelete(req?.user?._id);
+  return res.status(200).json(new ApiResponse(200, "Profile Deleted"));
+});
+
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  updateUser,
+  getUserProfile,
+  deleteUser
+};
