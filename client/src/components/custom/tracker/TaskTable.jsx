@@ -2,23 +2,24 @@ import React, { useMemo } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 function TaskTable({ tasks }) {
+  
   // Function to format time into HH:MM or return "00:00" if missing
   const formatTime = (time) => {
-    if (!time || isNaN(time)) return "00:00";
+    if (!time) return "00:00"; // Handle missing time
     const date = new Date(time);
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    return `${hours}:${minutes}`;
+    if (isNaN(date.getTime())) return "00:00"; // Handle invalid date
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
   // Function to format duration into HH:MM:SS (Handles NaN by returning "00:00:00")
   const formatDuration = (seconds) => {
-    if (!seconds || isNaN(seconds)) return "00:00:00"; // Handle NaN values
+    if (!seconds || isNaN(seconds)) return "00:00:00";
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
     return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
+  
 
   // Memoized task data
   const memoizedTasks = useMemo(() => tasks || [], [tasks]);
@@ -36,12 +37,13 @@ function TaskTable({ tasks }) {
         </TableHeader>
         <TableBody>
           {memoizedTasks.length > 0 ? (
-            memoizedTasks.map((task, index) => (
-              <TableRow key={index} className="border-b">
+            memoizedTasks.map((task) => (
+              <TableRow key={task._id} className="border-b">
                 <TableCell className="p-3">{task.title || "Untitled Task"}</TableCell>
                 <TableCell className="p-3">{formatTime(task.startTime)}</TableCell>
                 <TableCell className="p-3">{formatTime(task.endTime)}</TableCell>
-                <TableCell className="p-3">{formatDuration(task.duration)}</TableCell>
+                <TableCell className="p-3">{formatDuration(task.duration
+)}</TableCell>
               </TableRow>
             ))
           ) : (

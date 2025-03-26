@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Signup";
 import TaskPage from "./pages/TaskPage";
 import TimeTracker from "./pages/TimeTracker";
+import ReportPage from "./pages/ReportPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/tasks" element={<TaskPage />} />
         <Route path="/time-tracker" element={<TimeTracker />} />
+        <Route path="/reports" element={<ReportPage />} />
       </Route>
     </Routes>
   );

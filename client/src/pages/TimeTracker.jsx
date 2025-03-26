@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import Clock from "@/components/custom/tracker/clock";
 import TaskSelect from "@/components/custom/tracker/TaskSelect";
 import TaskTable from "@/components/custom/tracker/TaskTable";
-import tasksData from "../data/task.json";
+import tasksData from "../data/time.json";
 import TrackerStats from "@/components/custom/tracker/TrackerStats";
 
 function TimeTracker() {
