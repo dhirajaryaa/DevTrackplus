@@ -31,12 +31,31 @@ const createTask = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(201, "Task successfully created", newTask));
 });
 
-//! update task
 //! get task by id
+const getTask = AsyncHandler(async(req,res)=>{
+  const {taskId} = req.params;
+  if(!taskId){
+    throw new ApiError(400,'Task Id missing or invalid');
+  };
+  const task = await Task.findById(taskId);
+  if (!task) {
+    throw new ApiError(404, "Task not found");
+  }
+
+  if (task.userId.toString() !== req?.user?._id) {
+    throw new ApiError(403, "You are not authorized to access this task");
+  }
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Task fetch successfully", task));
+
+});
 //! get all tasks
+
+//! update task
 //! delete task
 //! compted task  task
 //! status update task
 //! priority update task
 
-export { createTask };
+export { createTask,getTask };
