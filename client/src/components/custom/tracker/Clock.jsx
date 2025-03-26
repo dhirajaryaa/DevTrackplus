@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const Clock = () => {
+const Clock = ({ clockTitle }) => {
   const [time, setTime] = useState(0);
   const [sessionTime, setSessionTime] = useState(1500);
   const [isRunning, setIsRunning] = useState(false);
@@ -32,14 +32,14 @@ const Clock = () => {
   const progressValue = useMemo(() => (time / sessionTime) * 100, [time]);
 
   return (
-    <Card className="sm:w-sm w-full  shadow-lg px-3 py-8">
+    <Card className="w-full shadow-lg px-3 py-8">
       <CardHeader>
-        <CardTitle className="text-center text-2xl font-semibold">
-          Task Timer
+        <CardTitle className="text-center text-xl sm:text-2xl font-semibold truncate">
+          {clockTitle}
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-4">
-        <div className="relative size-46 sm:size-56 p-2">
+        <div className="relative size-42 sm:size-56 p-2">
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <circle
               className="text-gray-300 stroke-current"
@@ -62,7 +62,7 @@ const Clock = () => {
               transform="rotate(-90 50 50)"
             />
           </svg>
-          <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold">
+          <div className="absolute inset-0 flex items-center justify-center text-3xl sm:text-5xl font-bold">
             {formattedTime}
           </div>
         </div>
