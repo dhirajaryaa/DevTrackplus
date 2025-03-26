@@ -4,6 +4,12 @@ configDotenv({
   path: "./.env",
 });
 
+export const cookiesOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
+};
+
 export const {
   MONGODB_URI,
   PORT,
