@@ -42,7 +42,7 @@ function AppSidebar() {
                   <SidebarMenuButton
                     isActive={pathname == item.href}
                     tooltip={item.label}
-                    className={"px-3 py-5 text-base font-semibold"}
+                    className={"px-3 py-5"}
                   >
                     {item.icon}
                     <span>{item.label}</span>
@@ -54,7 +54,7 @@ function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <span className="font-semibold p-2 bg-muted rounded">
+        <span className="font-semibold p-2 bg-muted rounded text-sm">
           Made with ❤️ by{" "}
           <a
             target="_blank"

@@ -4,7 +4,6 @@ import UserProfile from "./UserProfile";
 import { Link, useLocation } from "react-router-dom";
 import { Switch } from "../ui/switch";
 import {
-  ArrowUpCircleIcon,
   Moon,
   SquareDashedBottomCode,
   Sun,
@@ -18,14 +17,14 @@ function Header() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
-    <header className="flex sticky top-0 h-16 shrink-0 w-full justify-between  items-center gap-2 border-b px-4 bg-background/50 backdrop-blur-2xl">
+    <header className="flex sticky z-50 top-0 h-16 shrink-0 w-full justify-between  items-center gap-2 border-b px-4 bg-background/50 backdrop-blur-2xl">
       <div className="flex items-center space-x-2 flex-1">
         <SidebarTrigger />
         <Separator
           orientation="vertical"
           className="data-[orientation=vertical]:h-8 bg-muted-foreground"
         />
-        <h1 className="text-xl sm:text-2xl font-semibold">{pathname.split[1]|| "Dashboard"}</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold capitalize">{pathname.replace("/" ,"")||"Dashboard"}</h1>
       </div>
 
       <div className="flex items-center space-x-4">
