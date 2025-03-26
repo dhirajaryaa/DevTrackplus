@@ -12,8 +12,11 @@
   "license": "ISC",
   "description": "DevTrack+ is a powerful and intuitive productivity tool designed to help developers efficiently manage their tasks, track time, and enhance workflow collaboration. Built with a modern tech stack, DevTrack+ is optimized for productivity and ease of use.",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.0.1"
   },
   "devDependencies": {
