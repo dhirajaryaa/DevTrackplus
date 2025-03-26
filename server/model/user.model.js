@@ -43,11 +43,11 @@ const userSchema = mongoose.Schema(
         type: String,
         default: "",
       },
-      about: {
-        type: String,
-        trim: true,
-        default: "",
-      },
+    },
+    about: {
+      type: String,
+      trim: true,
+      default: "",
     },
   },
   { timestamps: true }
