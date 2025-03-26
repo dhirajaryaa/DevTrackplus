@@ -21,7 +21,11 @@ app.use(cookieParser());
 
 // setup router 
 import { userRouter } from "./routers/user.routes.js";
+import { TaskRouter } from "./routers/task.routes.js";
+//? user router 
 app.use("/api/v1/users",userRouter);
+//? tasks router 
+app.use("/api/v1/tasks",TaskRouter);
 
 
 export default app;
