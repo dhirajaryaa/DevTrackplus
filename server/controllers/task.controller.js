@@ -4,8 +4,9 @@ import { ApiError } from "../utils/ApiError.js";
 import { Task } from "../model/task.model.js";
 
 //! create new task
+// TODO: mongodb aggregations pipeline to get user info like avatar, name,email
 const createTask = AsyncHandler(async (req, res) => {
-  const { title, description,project, status, priority, completed } = req.body;
+  const { title, description, project, status, priority, completed } = req.body;
 
   if (!title) {
     throw new ApiError(400, "Title is Required");
@@ -32,11 +33,12 @@ const createTask = AsyncHandler(async (req, res) => {
 });
 
 //! get task by id
-const getTask = AsyncHandler(async(req,res)=>{
-  const {taskId} = req.params;
-  if(!taskId){
-    throw new ApiError(400,'Task Id missing or invalid');
-  };
+// TODO: mongodb aggregations pipeline to get user info like avatar, name,email
+const getTask = AsyncHandler(async (req, res) => {
+  const { taskId } = req.params;
+  if (!taskId) {
+    throw new ApiError(400, "Task Id missing or invalid");
+  }
   const task = await Task.findById(taskId);
   if (!task) {
     throw new ApiError(404, "Task not found");
@@ -48,14 +50,24 @@ const getTask = AsyncHandler(async(req,res)=>{
   return res
     .status(200)
     .json(new ApiResponse(200, "Task fetch successfully", task));
-
 });
 //! get all tasks
+const getAllTask = AsyncHandler(async (req, res) => {
 
+  const tasks = await Task.find();
+  if (!tasks) {
+    throw new ApiError(404, "Tasks not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Task fetch successfully", tasks));
+});
 //! update task
+
 //! delete task
 //! compted task  task
 //! status update task
 //! priority update task
 
-export { createTask,getTask };
+export { createTask, getTask,getAllTask };
