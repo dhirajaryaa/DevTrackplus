@@ -4,7 +4,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../model/user.model.js";
 import { cookiesOptions } from "../config/env.js";
 
-// generate access token
+//! generate access token
 const generateAccessAndRefreshToken = async function (user) {
   if (!user) {
     throw new ApiError(400, "userId is required");
@@ -19,6 +19,7 @@ const generateAccessAndRefreshToken = async function (user) {
   return { accessToken, refreshToken };
 };
 
+//! register user
 const registerUser = AsyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -46,6 +47,7 @@ const registerUser = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(201, "User Successful Register", user));
 });
 
+//! login user
 const loginUser = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -81,4 +83,23 @@ const loginUser = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "User Login Successful", user));
 });
 
-export { registerUser, loginUser };
+//! logout user
+const logoutUser = AsyncHandler(async (req, res) => {
+  const user = await User.findByIdAndUpdate(req?.user?._id, {
+    refreshToken: "",
+  });
+  if (!user) {
+    throw new ApiError(400, "Authorized user!");
+  }
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", cookiesOptions)
+    .clearCookie("refreshToken", cookiesOptions)
+    .json(new ApiResponse(200, "User Logout Successful"));
+});
+//! generateAccessToken
+//! update User
+//! delete User
+
+export { registerUser, loginUser, logoutUser };
