@@ -5,15 +5,18 @@
     "description": "Resolve the login issue for mobile users.",
     "status": "Todo",
     "priority": "High",
-    "createdAt": "2025-03-25T10:00:00Z"
+    "createdAt": "2025-03-25T10:00:00Z",
+    "completed": false
   },
   {
     "id": 2,
     "title": "UI Redesign",
     "description": "Improve dashboard UI based on new design system.",
-    "status": "In Progress",
+    "status": "Completed",
     "priority": "Medium",
-    "createdAt": "2025-03-24T15:30:00Z"
+    "createdAt": "2025-03-24T15:30:00Z",
+    "completedAt": "2025-03-25T16:00:00Z",
+    "completed": true
   },
   {
     "id": 3,
@@ -21,7 +24,9 @@
     "description": "Document API endpoints for frontend integration.",
     "status": "Completed",
     "priority": "Low",
-    "createdAt": "2025-03-23T08:45:00Z"
+    "createdAt": "2025-03-23T08:45:00Z",
+    "completedAt": "2025-03-24T10:00:00Z",
+    "completed": true
   },
   {
     "id": 4,
@@ -29,7 +34,8 @@
     "description": "Add dark mode support to the application.",
     "status": "Todo",
     "priority": "Medium",
-    "createdAt": "2025-03-22T14:10:00Z"
+    "createdAt": "2025-03-22T14:10:00Z",
+    "completed": false
   },
   {
     "id": 5,
@@ -37,7 +43,8 @@
     "description": "Improve the performance of database queries.",
     "status": "In Progress",
     "priority": "High",
-    "createdAt": "2025-03-21T11:50:00Z"
+    "createdAt": "2025-03-21T11:50:00Z",
+    "completed": false
   },
   {
     "id": 6,
@@ -45,7 +52,9 @@
     "description": "Automate deployment using GitHub Actions.",
     "status": "Completed",
     "priority": "High",
-    "createdAt": "2025-03-20T09:30:00Z"
+    "createdAt": "2025-03-20T09:30:00Z",
+    "completedAt": "2025-03-21T12:00:00Z",
+    "completed": true
   },
   {
     "id": 7,
@@ -53,7 +62,8 @@
     "description": "Investigate and fix transaction failures.",
     "status": "Todo",
     "priority": "Critical",
-    "createdAt": "2025-03-19T13:25:00Z"
+    "createdAt": "2025-03-19T13:25:00Z",
+    "completed": false
   },
   {
     "id": 8,
@@ -61,7 +71,8 @@
     "description": "Ensure the app meets WCAG guidelines.",
     "status": "In Progress",
     "priority": "Medium",
-    "createdAt": "2025-03-18T16:05:00Z"
+    "createdAt": "2025-03-18T16:05:00Z",
+    "completed": false
   },
   {
     "id": 9,
@@ -69,7 +80,9 @@
     "description": "Write unit tests for backend services.",
     "status": "Completed",
     "priority": "Low",
-    "createdAt": "2025-03-17T12:40:00Z"
+    "createdAt": "2025-03-17T12:40:00Z",
+    "completedAt": "2025-03-18T09:00:00Z",
+    "completed": true
   },
   {
     "id": 10,
@@ -77,86 +90,7 @@
     "description": "Implement better authentication & authorization.",
     "status": "Todo",
     "priority": "High",
-    "createdAt": "2025-03-16T10:55:00Z"
-  },
-  {
-    "id": 11,
-    "title": "Add Multi-language Support",
-    "description": "Enable localization for different regions.",
-    "status": "In Progress",
-    "priority": "Medium",
-    "createdAt": "2025-03-15T09:15:00Z"
-  },
-  {
-    "id": 12,
-    "title": "Refactor Codebase",
-    "description": "Improve code maintainability and structure.",
-    "status": "Completed",
-    "priority": "Low",
-    "createdAt": "2025-03-14T08:30:00Z"
-  },
-  {
-    "id": 13,
-    "title": "Integrate WebSockets",
-    "description": "Add real-time communication using WebSockets.",
-    "status": "Todo",
-    "priority": "High",
-    "createdAt": "2025-03-13T14:45:00Z"
-  },
-  {
-    "id": 14,
-    "title": "Update Dependencies",
-    "description": "Upgrade npm packages and remove vulnerabilities.",
-    "status": "In Progress",
-    "priority": "Medium",
-    "createdAt": "2025-03-12T11:10:00Z"
-  },
-  {
-    "id": 15,
-    "title": "Improve Search Functionality",
-    "description": "Enhance search filters and response time.",
-    "status": "Completed",
-    "priority": "Low",
-    "createdAt": "2025-03-11T16:25:00Z"
-  },
-  {
-    "id": 16,
-    "title": "Add Email Notifications",
-    "description": "Notify users about updates and actions via email.",
-    "status": "Todo",
-    "priority": "Medium",
-    "createdAt": "2025-03-10T13:40:00Z"
-  },
-  {
-    "id": 17,
-    "title": "Build Admin Dashboard",
-    "description": "Develop an admin panel for managing users.",
-    "status": "Todo",
-    "priority": "High",
-    "createdAt": "2025-03-09T10:20:00Z"
-  },
-  {
-    "id": 18,
-    "title": "Fix Responsive Issues",
-    "description": "Ensure the application works well on all devices.",
-    "status": "Todo",
-    "priority": "Low",
-    "createdAt": "2025-03-08T12:50:00Z"
-  },
-  {
-    "id": 19,
-    "title": "Migrate to New Server",
-    "description": "Move application to a more scalable server.",
-    "status": "Todo",
-    "priority": "Critical",
-    "createdAt": "2025-03-07T14:30:00Z"
-  },
-  {
-    "id": 20,
-    "title": "Improve API Rate Limiting",
-    "description": "Enhance rate-limiting strategies for security.",
-    "status": "In Progress",
-    "priority": "High",
-    "createdAt": "2025-03-06T11:45:00Z"
+    "createdAt": "2025-03-16T10:55:00Z",
+    "completed": false
   }
 ]
