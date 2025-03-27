@@ -1,12 +1,4 @@
 import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import {
-  ACCESS_TOKEN_EXPIRES_IN,
-  ACCESS_TOKEN_SECRET,
-  REFRESH_TOKEN_EXPIRES_IN,
-  REFRESH_TOKEN_SECRET,
-} from "../config/env.js";
 
 const taskSchema = mongoose.Schema(
   {
@@ -24,18 +16,18 @@ const taskSchema = mongoose.Schema(
     },
     project: {
       type: mongoose.Types.ObjectId,
-      ref: "Project",
-      default: "",
+      ref: "Project"
     },
     description: {
       type: String,
       trim: true,
+      default: "",
       minLength: 3,
     },
     status: {
       type: String,
       enum: ["todo", "in progress", "completed"],
-      default: "Todo",
+      default: "todo", 
     },
     priority: {
       type: String,
