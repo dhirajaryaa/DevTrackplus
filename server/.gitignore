@@ -12,6 +12,7 @@ logs/
 # Environment variables
 .env
 .env.*
+*.env.*
 
 # Build outputs
 dist/

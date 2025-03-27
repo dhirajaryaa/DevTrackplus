@@ -9,12 +9,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const [onSignUp, { isLoading }] = useRegisterUserMutation();
   const formRef = useRef();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,11 +28,9 @@ function Signup() {
     };
     onSignUp(data)
       .unwrap()
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        navigate("/login");
       });
-
-    // console.log(data);
   }
   return (
     <div
@@ -112,8 +112,12 @@ function Signup() {
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Signup
+                <Button disabled={isLoading} type="submit" className="w-full">
+                  {isLoading ? (
+                    <Loader2 className="size-6 animate-spin" />
+                  ) : (
+                    "Signup"
+                  )}
                 </Button>
               </div>
               <div className="text-center text-sm">
