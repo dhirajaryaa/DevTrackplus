@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { NODE_ENV } from "./config/env.js";
+import { NODE_ENV, ORIGIN } from "./config/env.js";
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: NODE_ENV === "http://localhost:5173",
+    origin: ORIGIN,
     credentials: NODE_ENV === "development",
   })
 );
