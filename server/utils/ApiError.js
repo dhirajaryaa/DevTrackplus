@@ -4,13 +4,18 @@ export class ApiError extends Error {
     message = "Something went wrong!",
     error = [],
     succuss = false,
-    isError = true
+    isError = true,
+    stack = ""
   ) {
     super(message);
     this.statusCode = statusCode;
-    this.message = message;
     this.isError = isError;
     this.succuss = succuss;
     this.error = error;
+    if (stack) {
+      this.stack = stack;
+    } else {
+      Error.captureStackTrace(this, this.constructor);
+    }
   }
 }
