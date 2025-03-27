@@ -18,8 +18,8 @@ function ProtectedRoute() {
     if (!isUserLoggedIn) {
       getLoginUser()
         .unwrap()
-        .then((data) => {
-          dispatch(setUser({ user: data?.user, token: data?.token }));
+        .then((data) => {          
+            dispatch(setUser(data));
         })
         .catch((err) => {
           dispatch(removeUser());

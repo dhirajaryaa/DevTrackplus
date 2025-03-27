@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 function Header() {
   const { pathname } = useLocation();
   const { isUserLoggedIn } = useSelector((state) => state.auth);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
     <header className="flex sticky z-50 top-0 h-16 shrink-0 w-full justify-between  items-center gap-2 border-b px-4 bg-background/50 backdrop-blur-2xl">

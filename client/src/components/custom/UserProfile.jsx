@@ -11,25 +11,34 @@ import {
 } from "../ui/dropdown-menu";
 import { LogOut, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useDispatch, useSelector } from "react-redux";
+import { useLogoutUserMutation } from "@/app/auth/authApi";
+import { removeUser } from "@/app/auth/authReducer";
 
 function UserProfile() {
-  const user = {
-    name: "John Doe",
-    avatar: {
-      url: "https://avatars.githubusercontent.com/u/167156303?s=400&u=afb53fb5cd43448a3281bfdf1501d3a8b2718bc3&v=4",
-    },
-  };
+  const { user } = useSelector((state) => state.auth);
+  const [logout, { isLoading }] = useLogoutUserMutation();
+  const dispatch = useDispatch();
+
+  function logoutUser() {
+    logout()
+      .unwrap()
+      .then(() => {
+        dispatch(removeUser());
+      });
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex items-center justify-center cursor-pointer border-[3px] border-accent-foreground/80 rounded-full p-[1px]">
           <Avatar className={"cursor-pointer sm:size-9"}>
-            <AvatarImage src={user?.avatar.url} alt={user?.name} />
+            <AvatarImage src={user?.avatar?.url} alt={user?.name} />
             <AvatarFallback className={"font-bold uppercase text-xl"}>
               {user?.name
                 ?.split(" ")
                 .map((name) => name[0])
-                .join("")}
+                .join("") || "U"}
             </AvatarFallback>
           </Avatar>
         </div>
@@ -45,7 +54,7 @@ function UserProfile() {
             Profile
             <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={logoutUser}>
             <LogOut />
             Logout
             <DropdownMenuShortcut>⌘L</DropdownMenuShortcut>
