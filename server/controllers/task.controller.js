@@ -152,7 +152,7 @@ const toggleTaskCompleted = AsyncHandler(async (req, res) => {
 
   if (!taskId) {
     throw new ApiError(400, "Task Id missing or invalid");
-  };
+  }
 
   const task = await Task.findById(taskId);
   if (!task) {
@@ -162,7 +162,6 @@ const toggleTaskCompleted = AsyncHandler(async (req, res) => {
   if (task.userId.toString() !== req?.user?._id) {
     throw new ApiError(403, "You are not authorized to access this task");
   }
-  
 
   const updateTask = await Task.findByIdAndUpdate(
     task?._id,
@@ -179,6 +178,38 @@ const toggleTaskCompleted = AsyncHandler(async (req, res) => {
 });
 
 //! priority update task
+const updateTaskPriority = AsyncHandler(async (req, res) => {
+  const { priority } = req.body;
+
+  if (!priority) {
+    throw new ApiError(400, "priority are required");
+  }
+
+  const { taskId } = req.params;
+
+  if (!taskId) {
+    throw new ApiError(400, "Task Id missing or invalid");
+  }
+  const task = await Task.findById(taskId);
+  if (!task) {
+    throw new ApiError(404, "Task not found");
+  }
+
+  if (task.userId.toString() !== req?.user?._id) {
+    throw new ApiError(403, "You are not authorized to access this task");
+  }
+
+  const updateTask = await Task.findByIdAndUpdate(
+    task?._id,
+    {
+      priority
+    },
+    { new: true }
+  );
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Task Priority update successfully", updateTask));
+});
 
 export {
   createTask,
@@ -187,5 +218,6 @@ export {
   updateTask,
   deleteTask,
   updateTaskStatus,
-  toggleTaskCompleted
+  toggleTaskCompleted,
+  updateTaskPriority
 };
