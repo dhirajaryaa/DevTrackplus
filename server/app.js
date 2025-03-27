@@ -24,4 +24,8 @@ import { userRouter } from "./routers/user.routes.js";
 app.use("/api/v1/users",userRouter);
 
 
+// setup middlwares 
+import { ErrorMiddleware } from "./middlewares/error.middleware.js";
+app.use(ErrorMiddleware)
+
 export default app;
