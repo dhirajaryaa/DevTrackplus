@@ -3,17 +3,14 @@ import { Button } from "../ui/button";
 import UserProfile from "./UserProfile";
 import { Link, useLocation } from "react-router-dom";
 import { Switch } from "../ui/switch";
-import {
-  Moon,
-  SquareDashedBottomCode,
-  Sun,
-} from "lucide-react";
+import { Moon, SquareDashedBottomCode, Sun } from "lucide-react";
 import { SidebarTrigger } from "../ui/sidebar";
 import { Separator } from "../ui/separator";
+import { useSelector } from "react-redux";
 
 function Header() {
-  const {pathname} = useLocation()
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  const { pathname } = useLocation();
+  const { isUserLoggedIn } = useSelector((state) => state.auth);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
@@ -24,7 +21,9 @@ function Header() {
           orientation="vertical"
           className="data-[orientation=vertical]:h-8 bg-muted-foreground"
         />
-        <h1 className="text-xl sm:text-2xl font-semibold capitalize">{pathname.replace("/" ,"")||"Dashboard"}</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold capitalize">
+          {pathname.replace("/", "") || "Dashboard"}
+        </h1>
       </div>
 
       <div className="flex items-center space-x-4">
