@@ -14,6 +14,7 @@ import { Loader2 } from "lucide-react";
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function Login() {
   const [onLogin, { isLoading }] = useLoginUserMutation();
@@ -32,8 +33,14 @@ function Login() {
     onLogin(data)
       .unwrap()
       .then((data) => {
+        toast.success("Login Successful!");
         dispatch(setUser(data?.user));
         navigate("/dashboard");
+      })
+      .catch((err) => {
+        const message = `Login Failed!: ${err?.data?.message}`;
+        toast.error(message);
+        console.error(message, err);
       });
   }
   return (

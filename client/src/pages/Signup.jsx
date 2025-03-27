@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
 import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function Signup() {
   const [onSignUp, { isLoading }] = useRegisterUserMutation();
@@ -29,7 +30,13 @@ function Signup() {
     onSignUp(data)
       .unwrap()
       .then(() => {
+        toast.success("Signup Successful!");
         navigate("/login");
+      })
+      .catch((err) => {
+        const message = `Sigup Failed!: ${err?.data?.message}`;
+        toast.error(message);
+        console.error(message, err);
       });
   }
   return (
