@@ -145,7 +145,47 @@ const updateTaskStatus = AsyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, "Task Status update successfully", updateTask));
 });
-//! compted task  task
+
+//! completed task  task
+const toggleTaskCompleted = AsyncHandler(async (req, res) => {
+  const { taskId } = req.params;
+
+  if (!taskId) {
+    throw new ApiError(400, "Task Id missing or invalid");
+  };
+
+  const task = await Task.findById(taskId);
+  if (!task) {
+    throw new ApiError(404, "Task not found");
+  }
+
+  if (task.userId.toString() !== req?.user?._id) {
+    throw new ApiError(403, "You are not authorized to access this task");
+  }
+  
+
+  const updateTask = await Task.findByIdAndUpdate(
+    task?._id,
+    {
+      completed: !task.completed,
+    },
+    { new: true }
+  );
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, "Task Complete update successfully", updateTask)
+    );
+});
+
 //! priority update task
 
-export { createTask, getTask, getAllTask, updateTask, deleteTask,updateTaskStatus };
+export {
+  createTask,
+  getTask,
+  getAllTask,
+  updateTask,
+  deleteTask,
+  updateTaskStatus,
+  toggleTaskCompleted
+};
