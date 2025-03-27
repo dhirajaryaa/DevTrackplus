@@ -20,7 +20,13 @@ export const AuthApi = ApiQuery.injectEndpoints({
       },
       transformResponse: (data) => data?.data,
     }),
+    getUser: builder.mutation({
+      query: () => {
+        return { url: "/users/profile", method: "GET"};
+      },
+      transformResponse: (data) => data?.data,
+    }),
   }),
 });
 
-export const { useLoginUserMutation,useRegisterUserMutation,useLogoutUserMutation } = AuthApi;
+export const { useLoginUserMutation,useRegisterUserMutation,useLogoutUserMutation,useGetUserMutation } = AuthApi;

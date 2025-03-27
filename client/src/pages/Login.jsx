@@ -32,7 +32,7 @@ function Login() {
     onLogin(data)
       .unwrap()
       .then((data) => {
-        dispatch(setUser({ user: data?.user, token: data?.accessToken }));
+        dispatch(setUser(data?.user));
         navigate("/dashboard");
       });
   }
