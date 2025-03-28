@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Button } from "../ui/button";
-import UserProfile from "./UserProfile";
+import { Button } from "@/components/ui/button";
+import UserProfile from "./user/UserProfile";
 import { Link, useLocation } from "react-router-dom";
-import { Switch } from "../ui/switch";
+import { Switch } from "@/components/ui/switch";
 import { Moon, SquareDashedBottomCode, Sun } from "lucide-react";
-import { SidebarTrigger } from "../ui/sidebar";
-import { Separator } from "../ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 import { useSelector } from "react-redux";
-import { ProfileModel } from "./ProfileModel";
+import { ProfileModel } from "./user/ProfileModel";
 
 function Header() {
   const { pathname } = useLocation();
