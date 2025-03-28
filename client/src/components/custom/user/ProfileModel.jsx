@@ -13,16 +13,41 @@ import { Label } from "@/components/ui/label";
 import { useDispatch, useSelector } from "react-redux";
 import { Textarea } from "@/components/ui/textarea";
 import AvatarUpload from "./AvatarUpload";
+import { useRef } from "react";
+import { useUpdateProfileMutation } from "@/app/auth/authApi";
+import { setUser } from "@/app/auth/authReducer";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export function ProfileModel() {
   const { profileOpen } = useSelector((state) => state.ui);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const formRef = useRef();
+  const [profileUpdate, { isLoading }] = useUpdateProfileMutation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(formRef.current);
+    const data = {
+      name: formData.get("name"),
+      about: formData.get("about"),
+    };
+    profileUpdate(data)
+      .unwrap()
+      .then((data) => {
+        dispatch(setUser(data));
+        toast.success("Profile Update succussful");
+      })
+      .catch((err) => {
+        toast.error(`Profile Update Fail!: ${err.message}`);
+      }).finally(()=>dispatch(setProfileOpen()));
+  };
 
   return (
     <Dialog open={profileOpen} onOpenChange={() => dispatch(setProfileOpen())}>
       <DialogContent>
-        <form>
+        <form onSubmit={handleSubmit} ref={formRef}>
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
@@ -39,6 +64,7 @@ export function ProfileModel() {
               </Label>
               <Input
                 id="name"
+                name="name"
                 defaultValue={user?.name}
                 className="col-span-3"
               />
@@ -49,13 +75,16 @@ export function ProfileModel() {
               </Label>
               <Textarea
                 id={"about"}
+                name="about"
                 className={"col-span-3 resize-none"}
                 defaultValue={user?.about}
               ></Textarea>
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">
+              {isLoading ? <Loader2 className="animate-spin size-6" /> : "Save"}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
