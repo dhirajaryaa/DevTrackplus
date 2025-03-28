@@ -33,19 +33,49 @@ const createTask = AsyncHandler(async (req, res) => {
 });
 
 //! get task by id
-// TODO: mongodb aggregations pipeline to get user info like avatar, name,email
 const getTask = AsyncHandler(async (req, res) => {
   const { taskId } = req.params;
+
   if (!taskId) {
     throw new ApiError(400, "Task Id missing or invalid");
   }
-  const task = await Task.findById(taskId);
+  const task = await Task.aggregate([
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(taskId),
+        userId: new mongoose.Types.ObjectId(req.user._id),
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "userId",
+        foreignField: "_id",
+        as: "user_detailed",
+      },
+    },
+    {
+      $addFields: {
+        user_detailed: { $arrayElemAt: ["$user_detailed", 0] },
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        title: 1,
+        description: 1,
+        status: 1,
+        dueDate: 1,
+        priority: 1,
+        createdAt: 1,
+        "user_detailed.email": 1,
+        "user_detailed.name": 1,
+        "user_detailed.avatar": 1,
+      },
+    },
+  ]);
   if (!task) {
     throw new ApiError(404, "Task not found");
-  }
-
-  if (task.userId.toString() !== req?.user?._id) {
-    throw new ApiError(403, "You are not authorized to access this task");
   }
   return res
     .status(200)
@@ -53,7 +83,6 @@ const getTask = AsyncHandler(async (req, res) => {
 });
 
 //! get all tasks
-// TODO: mongodb aggregations pipeline to get user info like avatar, name,email
 const getAllTask = AsyncHandler(async (req, res) => {
   const tasks = await Task.aggregate([
     {
