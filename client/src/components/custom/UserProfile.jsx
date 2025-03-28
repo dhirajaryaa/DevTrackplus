@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogoutUserMutation } from "@/app/auth/authApi";
 import { removeUser } from "@/app/auth/authReducer";
 import { toast } from "sonner";
+import { setProfileOpen } from "@/app/ui/uiReducer";
 
 function UserProfile() {
   const { user } = useSelector((state) => state.auth);
@@ -56,7 +57,7 @@ function UserProfile() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={()=>dispatch(setProfileOpen())}>
             <User />
             Profile
             <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>

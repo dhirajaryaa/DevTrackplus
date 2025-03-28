@@ -7,6 +7,7 @@ import { Moon, SquareDashedBottomCode, Sun } from "lucide-react";
 import { SidebarTrigger } from "../ui/sidebar";
 import { Separator } from "../ui/separator";
 import { useSelector } from "react-redux";
+import { ProfileModel } from "./ProfileModel";
 
 function Header() {
   const { pathname } = useLocation();
@@ -35,6 +36,7 @@ function Header() {
               <Moon className={`size-5 ${isDarkMode && "text-sky-500"}`} />
             </div>
             <UserProfile />
+            <ProfileModel/>
           </>
         ) : (
           <>
