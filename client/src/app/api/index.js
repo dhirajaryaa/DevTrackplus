@@ -21,8 +21,6 @@ export const baseQueryReauth = async (args, api, extraOptions) => {
       extraOptions
     );
     if (newToken?.data) {
-      console.log("Refresh token geted", newToken?.data);
-
       // Retry the original request with the new token
       result = await baseQuery(args, api, extraOptions);
     } else {
