@@ -28,4 +28,8 @@ app.use("/api/v1/users",userRouter);
 app.use("/api/v1/tasks",TaskRouter);
 
 
+// setup middlwares 
+import { ErrorMiddleware } from "./middlewares/error.middleware.js";
+app.use(ErrorMiddleware)
+
 export default app;
