@@ -1,11 +1,20 @@
 import { Badge } from "@/components/ui/badge";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskCard from "./TasksCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import tasks from "../../../data/task.json";
+import { useGetAllTasksQuery } from "@/app/task/taskApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setTasks } from "@/app/task/taskReducer";
 
 function TaskColum() {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { tasks } = useSelector((state) => state.tasks);
+  const { isLoading, data } = useGetAllTasksQuery();
+
+  useEffect(() => {
+    dispatch(setTasks(data));
+  }, [data, dispatch]);
+
   const taskSection = [
     {
       label: "Todo",
@@ -29,7 +38,7 @@ function TaskColum() {
         )?.length;
 
         return (
-          <div key={item.label} >
+          <div key={item.label}>
             <h2 className="flex items-center gap-2 my-4 justify-center text-center">
               <span className={`${item.color} w-4 h-4 rounded-full`} />
               <span className="mr-6 text-lg font-semibold capitalize">
@@ -56,7 +65,7 @@ function TaskColum() {
                   (task) =>
                     task?.status?.toLowerCase() ===
                       item.label.toLowerCase() && (
-                      <TaskCard key={task.id} task={task} />
+                      <TaskCard key={task._id} task={task} />
                     )
                 )}
               </>
