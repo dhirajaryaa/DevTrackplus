@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Calendar, Flag } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const TaskCard = ({ task }) => {
-  const [isChecked, setIsChecked] = useState(task?.completed);
-
+  const [isChecked, setIsChecked] = useState(task?.completed || false);
   const getStatusColor = function (status) {
     switch (status) {
       case "Todo":
@@ -54,13 +54,15 @@ const TaskCard = ({ task }) => {
       </div>
 
       {/* Actions */}
-      <div className="flex justify-between items-center mt-3">
+      <div className="flex justify-between items-center mt-3 capitalize">
         <Badge variant="outline" className={`${getStatusColor(task.status)}`}>
           {task?.status}
         </Badge>
-        <button className="text-blue-500 hover:underline text-sm">
-          View Details
-        </button>
+        <Link to={`/tasks/${task?._id}`}>
+          <button className="text-blue-500 hover:underline text-sm">
+            View Details
+          </button>
+        </Link>
       </div>
     </article>
   );

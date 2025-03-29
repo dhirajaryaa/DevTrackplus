@@ -12,8 +12,17 @@ export const TaskApi = ApiQuery.injectEndpoints({
         },
         transformResponse: (data) => data?.data,
       }),
+      getTask: builder.query({
+        query: (taskId) => {
+          return {
+            url: `/tasks/${taskId}`,
+            method: "GET",
+          };
+        },
+        transformResponse: (data) => data?.data,
+      }),
     };
   },
 });
 
-export const { useGetAllTasksQuery } = TaskApi;
+export const { useGetAllTasksQuery,useGetTaskQuery } = TaskApi;
